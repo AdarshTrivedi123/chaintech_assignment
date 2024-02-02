@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>idealink write blog</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0; 
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px; 
+        }
+
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form method="post" action="/idealink/write/{{request.user.username}}">
+            {% csrf_token %}
+            <input type="text" placeholder="Blog Title" name="title" required><br>
+            <textarea placeholder="Blog Content" name="content" required></textarea><br>
+            <label for="dropdown">Select a Category:</label>
+            <select id="dropdown" name="dropdown">
+                <option value="General">None</option>
+                <option value="HealthCare">HealthCare</option>
+                <option value="Education">Education</option>
+                <option value="Technology">Technology</option>
+                <option value="Sports">Sports</option>
+                <option value="Science">Science</option>
+            </select>
+            <input type="text" placeholder="Custom Field" name="custom">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

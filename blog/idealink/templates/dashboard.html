@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .heading {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .left_content {
+            font-size: 30px;
+        }
+
+        .cards {
+            margin-left: 50px;
+            margin-bottom: 30px;
+        }
+
+        .trending-text {
+            font-size: 27px;
+            font-weight: 500;
+            margin-left: 30px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .tre-head {
+            font-size: 23px;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        .tre-writer .tre-date {
+            color: grey;
+        }
+
+        .trending-card {
+            background-color: rgb(253, 252, 248);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width:fit-content;
+            padding:20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class=" heading">
+
+        <div class="left_content">{{request.user.first_name}} {{request.user.last_name}}</div>
+        <a  href="/idealink/logout">log Out</a>
+
+    </div>
+
+    <div class="trending-text">
+        My Blogs
+    </div>
+    {% for items in blog_item %}
+    <div class=" cards">
+        <div class="card  trending-card ">
+            <div class="tre-head">
+                {{items.title}}
+            </div>
+            <div class="tre-writer">
+                {{items.username}}
+            </div>
+            <div class="tre-date">
+                {{items.date_time}}
+            </div>
+            <div>
+                <a href="/idealink/fullblog/{{items.id}}">read full blog</a>
+             </div>
+        </div>
+    </div>
+    {%endfor%}
+
+</body>
+
+</html>

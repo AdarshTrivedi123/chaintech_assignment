@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        * {
+            overflow-x: hidden;
+        }
+
+        nav {
+            background-color: #E0E0E0;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .brand {
+            float: left;
+            padding: 14px 16px;
+        }
+
+        .right-menu {
+            float: right;
+        }
+
+        .right-menu a {
+            padding: 14px 16px;
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .right-menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .avatar_nav {
+            background-color: black;
+            color: #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            line-height: 32px;
+            font-size: 18px;
+            margin: 0 auto 10px;
+
+        }
+
+        .line {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .roboto {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .line:hover {
+            text-decoration: underline;
+        }
+
+        .title {
+            /* width:800px; */
+            max-width: 700px;
+            margin: 0 auto;
+            margin-top: 30px;
+            font-size: 30px;
+            font-weight: 500;
+            padding: 30px;
+        }
+
+        .content {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 20px;
+            padding: 30px;
+        }
+
+        .author {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="brand">Idealink</div>
+        <a href="/idealink/">Home</a>
+        <a href="/idealink/write/{{request.user.username}}">Write</a>
+        <div class="right-menu">
+            {% if request.user.is_anonymous %}
+            <a href="signin" style="color:black">Sign In</a>
+            <a href="signup" style="color:black">Sign Up</a>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <a href="/idealink/dashboard/{{request.user.username}}">
+                <div class="avatar_nav  ">
+                    {{request.user.first_name|slice:":1"}}{{request.user.last_name|slice:":1"}}</div>
+            </a>
+            {% endif %}
+        </div>
+    </nav>
+    {% for item in blog_item %}
+    <div>
+        <div>
+            <div class="title ">{{item.title}}</div>
+        </div>
+        {%for item in user_item %}
+        <div >
+            <div class=" author">
+                <div class="">
+                    <b>Author:</b>{{item.first_name}} {{item.last_name}}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div >
+            <div class="author">
+                <div class="">
+                    <b>Date:</b>{{item.date_time}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <div class="content">{{item.content}}</div>
+        </div>
+    </div>
+    {{item.date_time}}
+    {% endfor %}
+
+    {%for item in user_item %}
+    {{item.first_name}} {{item.last_name}}
+    {% endfor %}
+</body>
+
+</html>
